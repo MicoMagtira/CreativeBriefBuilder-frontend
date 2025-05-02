@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getBrandInfo, addSummaryToBrief } from './briefInfo';
+import { getBrandInfo, addSummaryToBrief } from './briefInfo.js';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

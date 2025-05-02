@@ -9,8 +9,8 @@ import mammoth from 'mammoth';
 // import pdfParse from 'pdf-parse';
 import xlsx from 'xlsx';
 import csvParse from 'csv-parse/lib/sync';
-import { addSummaryToBrief } from './briefInfo';
-import { analyzeVisualAssets } from './visualStrategy';
+import { addSummaryToBrief } from './briefInfo.js';
+import { analyzeVisualAssets } from './visualStrategy.js';
 
 // You should set your OpenAI API key in your environment variables
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

@@ -4,8 +4,8 @@ import OpenAI from 'openai';
 import * as fs from 'fs/promises';
 
 import mammoth from 'mammoth';
-import { extractReviewAndProductColumns } from './csvUtils';
-import { chunkAndAggregateInsights } from './chunkAndAggregate';
+import { extractReviewAndProductColumns } from './csvUtils.js';
+import { chunkAndAggregateInsights } from './chunkAndAggregate.js';
 import * as path from 'path';
 
 let openai: OpenAI | undefined = undefined;

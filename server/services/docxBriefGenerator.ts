@@ -1,7 +1,7 @@
 import { Document, Packer, Paragraph, TextRun, AlignmentType, Table, TableRow, TableCell, WidthType } from 'docx';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getBrandInfo } from '../briefInfo';
+import { getBrandInfo } from '../briefInfo.js';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

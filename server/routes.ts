@@ -1,11 +1,11 @@
 import type { Application, Request, Response } from "express";
 import * as http from "http";
-import { saveBrandInfo, getBrandInfo, updateAudienceInfo, updateOffersInfo, updateVisualAssetsInfo, updateBrandReviewsInfo, updateBrandInfo, patchBrandInfo, type BrandInfo, type AudienceInfo, type OffersInfo, type VisualAssetsInfo, type BrandReviewsInfo } from "./briefInfo";
-import { analyzeUploadHandler, analyzeVisualAssetsHandler } from './analyzeUpload';
-import { generateBriefSummaryHandler } from './aiBriefSummary';
-import reviewAnalysisRouter from './reviewAnalysis';
+import { saveBrandInfo, getBrandInfo, updateAudienceInfo, updateOffersInfo, updateVisualAssetsInfo, updateBrandReviewsInfo, updateBrandInfo, patchBrandInfo, type BrandInfo, type AudienceInfo, type OffersInfo, type VisualAssetsInfo, type BrandReviewsInfo } from "./briefInfo.js";
+import { analyzeUploadHandler, analyzeVisualAssetsHandler } from './analyzeUpload.js';
+import { generateBriefSummaryHandler } from './aiBriefSummary.js';
+import reviewAnalysisRouter from './reviewAnalysis.js';
 console.log('[Startup] reviewAnalysis router loaded');
-import { generateBriefDocx } from './services/docxBriefGenerator';
+import { generateBriefDocx } from './services/docxBriefGenerator.js';
 
 export async function registerRoutes(app: Application): Promise<http.Server> {
   // Mount reviewAnalysis router for brand-reviews endpoints

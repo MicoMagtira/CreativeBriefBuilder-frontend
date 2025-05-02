@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { registerRoutes } from "./routes.js";
+import { setupVite, serveStatic, log } from "./vite.js";
 
 const app = express();
 app.use(express.json());
@@ -63,11 +63,10 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = 5050;
+  const port = process.env.PORT ? Number(process.env.PORT) : 5050;
   server.listen({
     port,
-    host: "127.0.0.1",
-
+    host: "0.0.0.0",
   }, () => {
     log(`serving on port ${port}`);
   });

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import multer from 'multer';
-import { analyzeReviewsWithAI } from './services/aiReviewAnalysis';
-import { saveReviewInsights } from './services/generalStorage';
+import { analyzeReviewsWithAI } from './services/aiReviewAnalysis.js';
+import { saveReviewInsights } from './services/generalStorage.js';
 
 console.log('[Startup] reviewAnalysis router initializing');
 const router = express.Router();

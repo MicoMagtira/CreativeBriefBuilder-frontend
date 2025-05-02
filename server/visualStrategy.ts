@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-import { addSummaryToBrief } from './briefInfo';
+import { addSummaryToBrief } from './briefInfo.js';
 
 export async function analyzeVisualAssets({ topAds, moodboard, briefId }: { topAds: { path: string, mimetype: string, originalFilename: string }[], moodboard: { path: string, mimetype: string, originalFilename: string }[], briefId?: string }) {
   console.log('analyzeVisualAssets called with:', { topAds, moodboard, briefId });
