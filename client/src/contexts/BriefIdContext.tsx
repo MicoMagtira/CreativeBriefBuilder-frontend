@@ -3,13 +3,19 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface BriefIdContextType {
   briefId: string | null;
   setBriefId: (id: string | null) => void;
+  resetBriefId?: () => void;
 }
 
 const BriefIdContext = createContext<BriefIdContextType | undefined>(undefined);
 
 export const BriefIdProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [briefId, setBriefIdState] = useState<string | null>(() => {
-    return localStorage.getItem('briefId');
+    let stored = localStorage.getItem('briefId');
+    if (!stored) {
+      stored = crypto.randomUUID();
+      localStorage.setItem('briefId', stored);
+    }
+    return stored;
   });
 
   useEffect(() => {
@@ -24,8 +30,14 @@ export const BriefIdProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setBriefIdState(id);
   };
 
+  const resetBriefId = () => {
+    const newId = crypto.randomUUID();
+    setBriefIdState(newId);
+    localStorage.setItem('briefId', newId);
+  };
+
   return (
-    <BriefIdContext.Provider value={{ briefId, setBriefId }}>
+    <BriefIdContext.Provider value={{ briefId, setBriefId, resetBriefId }}>
       {children}
     </BriefIdContext.Provider>
   );
