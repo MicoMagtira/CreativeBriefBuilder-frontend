@@ -15,10 +15,9 @@ const Review = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(`/briefs/${briefId}`);
-        if (!res.ok) throw new Error('Failed to load brief data');
-        const data = await res.json();
-        setSections(data);
+        // Use axios instance to ensure correct backend URL
+        const res = await api.get(`/briefs/${briefId}`);
+        setSections(res.data);
       } catch (e) {
         setError(e.message || 'Failed to load brief data');
       } finally {
