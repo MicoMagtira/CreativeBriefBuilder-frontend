@@ -19,15 +19,9 @@ export function useSaveBriefSection(): SaveSectionResult {
     setSuccess(false);
     try {
       let response, result;
-      if (section === 'brandInfo' && data.briefId) {
-        // PATCH for brandInfo only
-        response = await api.patch(`/api/briefs/${data.briefId}`, data);
-        result = response.data;
-      } else {
-        // POST for all other sections
-        response = await api.post('/api/briefs/save-section', { section, ...data });
-        result = response.data;
-      }
+      // Always use POST for brandInfo (and all other sections)
+      response = await api.post('/api/briefs/save-section', { section, ...data });
+      result = response.data;
       if ((response.status < 200 || response.status >= 300) || !result.success) {
         setError((result.error ? `[${section}] ` + result.error : `Failed to save section: ${section}`));
         setSuccess(false);
