@@ -20,16 +20,16 @@ export function useSaveBriefSection(): SaveSectionResult {
     try {
       let response, result;
       if (section === 'brandInfo' && data.briefId) {
-        // PATCH update for BrandInfo
+        // PATCH for brandInfo only
         response = await api.patch(`/api/briefs/${data.briefId}`, data);
         result = response.data;
       } else {
-        // Default to POST for new or other sections
+        // POST for all other sections
         response = await api.post('/api/briefs/save-section', { section, ...data });
         result = response.data;
       }
       if ((response.status < 200 || response.status >= 300) || !result.success) {
-        setError(result.error || 'Failed to save section');
+        setError((result.error ? `[${section}] ` + result.error : `Failed to save section: ${section}`));
         setSuccess(false);
         setLoading(false);
         return null;
@@ -37,8 +37,8 @@ export function useSaveBriefSection(): SaveSectionResult {
       setSuccess(true);
       setLoading(false);
       return result.briefId || data.briefId || null;
-    } catch (err) {
-      setError((err as Error).message || 'Unknown error');
+    } catch (err: any) {
+      setError(`[${section}] ` + (err?.message || 'Unknown error'));
       setSuccess(false);
       setLoading(false);
       return null;
