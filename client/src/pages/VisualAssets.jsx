@@ -29,16 +29,10 @@ const VisualAssets = () => {
       formData.append('briefId', briefId || '');
       adsFiles.forEach(file => formData.append('topAds', file));
       moodboardFiles.forEach(file => formData.append('moodboard', file));
-      const res = await fetch('/api/visual-assets/analyze', {
-        method: 'POST',
-        body: formData,
+      const res = await api.post('/api/visual-assets/analyze', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || 'Failed to analyze visual assets');
-      }
-      const data = await res.json();
-      setVisualStrategy(data);
+      setVisualStrategy(res.data);
     } catch (e) {
       setErrors((prev) => ({ ...prev, ai: e.message || 'Failed to analyze visual assets' }));
     } finally {
