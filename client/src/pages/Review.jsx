@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import api from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { useBriefId } from '../contexts/BriefIdContext';
 
