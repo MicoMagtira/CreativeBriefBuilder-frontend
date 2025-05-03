@@ -20,7 +20,7 @@ export function useSaveBriefSection(): SaveSectionResult {
     try {
       let response, result;
       // Always use POST for brandInfo (and all other sections)
-      response = await api.post('/api/briefs/save-section', { section, ...data });
+      response = await api.patch('/briefs/save-section', { section, ...data });
       result = response.data;
       if ((response.status < 200 || response.status >= 300) || !result.success) {
         setError((result.error ? `[${section}] ` + result.error : `Failed to save section: ${section}`));

@@ -30,7 +30,7 @@ const VisualAssets = () => {
       formData.append('briefId', briefId || '');
       adsFiles.forEach(file => formData.append('topAds', file));
       moodboardFiles.forEach(file => formData.append('moodboard', file));
-      const res = await api.post('/api/visual-assets/analyze', formData, {
+      const res = await api.post('/visual-assets/analyze', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setVisualStrategy(res.data);

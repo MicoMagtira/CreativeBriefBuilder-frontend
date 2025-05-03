@@ -15,7 +15,7 @@ const Review = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(`/api/briefs/${briefId}`);
+        const res = await fetch(`/briefs/${briefId}`);
         if (!res.ok) throw new Error('Failed to load brief data');
         const data = await res.json();
         setSections(data);
