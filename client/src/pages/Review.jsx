@@ -135,7 +135,7 @@ const Review = () => {
               type="button"
               onClick={async () => {
                 try {
-                  const res = await fetch(`/api/briefs/${briefId}/download-docx`, {
+                  const res = await fetch(`https://creativebriefbuilder-monorepo.onrender.com/api/briefs/${briefId}/download-docx`, {
                     method: 'GET',
                   });
                   if (!res.ok) throw new Error('Failed to download DOCX');
