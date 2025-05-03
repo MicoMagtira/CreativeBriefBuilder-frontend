@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../lib/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const ReviewsSection = () => {
@@ -19,7 +19,7 @@ const ReviewsSection = () => {
       try {
         const briefId = window.localStorage.getItem('briefId');
         if (!briefId) throw new Error('No brief ID found.');
-        const res = await axios.get(`/api/briefs/${briefId}`);
+        const res = await api.get(`/api/briefs/${briefId}`);
         const brandReviews = res.data?.brandReviews?.reviews || [];
         setReviews(brandReviews);
         // Try to get the latest AI summary if available
@@ -47,7 +47,7 @@ const ReviewsSection = () => {
     try {
       const briefId = window.localStorage.getItem('briefId');
       if (!briefId) throw new Error('No brief ID found.');
-      const res = await axios.post(`/api/briefs/${briefId}/generate-summary`);
+      const res = await api.post(`/api/briefs/${briefId}/generate-summary`);
       // Defensive: If summary is not a string, stringify it safely
       let summaryText = res.data.summary;
       if (typeof summaryText !== 'string') {
@@ -105,7 +105,7 @@ const ReviewsSection = () => {
     } else {
       const briefId = window.localStorage.getItem('briefId');
       if (!briefId) throw new Error('No brief ID found.');
-      const res = await axios.post(`/api/briefs/${briefId}/generate-summary`);
+      const res = await api.post(`/api/briefs/${briefId}/generate-summary`);
       let summaryText = res.data.summary;
       if (typeof summaryText !== 'string') {
         summaryText = JSON.stringify(summaryText, null, 2);

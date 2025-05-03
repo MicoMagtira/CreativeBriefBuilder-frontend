@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import api from '../lib/api';
 
 interface SaveSectionResult {
   loading: boolean;
@@ -20,22 +21,14 @@ export function useSaveBriefSection(): SaveSectionResult {
       let response, result;
       if (section === 'brandInfo' && data.briefId) {
         // PATCH update for BrandInfo
-        response = await fetch(`/api/briefs/${data.briefId}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        result = await response.json();
+        response = await api.patch(`/api/briefs/${data.briefId}`, data);
+        result = response.data;
       } else {
         // Default to POST for new or other sections
-        response = await fetch('/api/briefs/save-section', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ section, ...data }),
-        });
-        result = await response.json();
+        response = await api.post('/api/briefs/save-section', { section, ...data });
+        result = response.data;
       }
-      if (!response.ok || !result.success) {
+      if ((response.status < 200 || response.status >= 300) || !result.success) {
         setError(result.error || 'Failed to save section');
         setSuccess(false);
         setLoading(false);

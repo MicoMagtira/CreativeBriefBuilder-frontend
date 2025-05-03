@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../lib/api';
 import { useSaveBriefSection } from '../hooks/useSaveBriefSection';
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -28,7 +28,7 @@ const BrandReviews = () => {
     setSummaryError('');
     try {
       if (!briefId) throw new Error('No brief ID found.');
-      await axios.post(`/api/briefs/${briefId}/generate-summary`);
+      await api.post(`/api/briefs/${briefId}/generate-summary`);
       navigate('/review');
     } catch (e) {
       setSummaryError(e.message || 'Failed to generate summary.');
@@ -116,7 +116,7 @@ const BrandReviews = () => {
       const formData = new FormData();
       formData.append('reviews', selectedFile); // must match backend field
       if (briefId) formData.append('briefId', briefId);
-      const response = await axios.post('/api/brand-reviews/analyze', formData);
+      const response = await api.post('/api/brand-reviews/analyze', formData);
       setAiInsights(response.data.insights);
       setSuccess(true);
       // Save insights to brief only after successful analysis
